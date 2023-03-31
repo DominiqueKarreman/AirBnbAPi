@@ -12,47 +12,47 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LandlordsController : ControllerBase
+    public class LocationsController : ControllerBase
     {
         private readonly ApiContext _context;
 
-        public LandlordsController(ApiContext context)
+        public LocationsController(ApiContext context)
         {
             _context = context;
         }
 
-        // GET: api/Landlords
+        // GET: api/Locations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Landlord>>> GetLandlord()
+        public async Task<ActionResult<IEnumerable<Location>>> GetLocation()
         {
-            return await _context.Landlord.ToListAsync();
+            return await _context.Location.ToListAsync();
         }
 
-        // GET: api/Landlords/5
+        // GET: api/Locations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Landlord>> GetLandlord(int id)
+        public async Task<ActionResult<Location>> GetLocation(int id)
         {
-            var landlord = await _context.Landlord.FindAsync(id);
+            var location = await _context.Location.FindAsync(id);
 
-            if (landlord == null)
+            if (location == null)
             {
                 return NotFound();
             }
 
-            return landlord;
+            return location;
         }
 
-        // PUT: api/Landlords/5
+        // PUT: api/Locations/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLandlord(int id, Landlord landlord)
+        public async Task<IActionResult> PutLocation(int id, Location location)
         {
-            if (id != landlord.Id)
+            if (id != location.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(landlord).State = EntityState.Modified;
+            _context.Entry(location).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LandlordExists(id))
+                if (!LocationExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // POST: api/Landlords
+        // POST: api/Locations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Landlord>> PostLandlord(Landlord landlord)
+        public async Task<ActionResult<Location>> PostLocation(Location location)
         {
-            _context.Landlord.Add(landlord);
+            _context.Location.Add(location);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLandlord", new { id = landlord.Id }, landlord);
+            return CreatedAtAction("GetLocation", new { id = location.Id }, location);
         }
 
-        // DELETE: api/Landlords/5
+        // DELETE: api/Locations/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLandlord(int id)
+        public async Task<IActionResult> DeleteLocation(int id)
         {
-            var landlord = await _context.Landlord.FindAsync(id);
-            if (landlord == null)
+            var location = await _context.Location.FindAsync(id);
+            if (location == null)
             {
                 return NotFound();
             }
 
-            _context.Landlord.Remove(landlord);
+            _context.Location.Remove(location);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool LandlordExists(int id)
+        private bool LocationExists(int id)
         {
-            return _context.Landlord.Any(e => e.Id == id);
+            return _context.Location.Any(e => e.Id == id);
         }
     }
 }
