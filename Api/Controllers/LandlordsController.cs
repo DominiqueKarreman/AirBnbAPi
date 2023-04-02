@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Data;
 using Api.Model;
+using Api.Model.DTO;
+using Api.Services;
+using Api.Service;
+using AutoMapper;
 
 namespace Api.Controllers
 {
@@ -15,18 +19,23 @@ namespace Api.Controllers
     public class LandlordsController : ControllerBase
     {
         private readonly ApiContext _context;
+        private readonly IEntityService _entityService;
+      private readonly IMapper _mapper;
 
-        public LandlordsController(ApiContext context)
+      public LandlordsController(ApiContext context, IEntityService entityService, IMapper mapper)
         {
             _context = context;
-        }
+         _entityService = entityService;
+         _mapper = mapper;
+      }
+
 
         // GET: api/Landlords
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Landlord>>> GetLandlord()
+        [HttpGet("GetAll")]
+        public IEnumerable<LandlordDto> GetLandlord()
         {
-            return await _context.Landlord.ToListAsync();
-        }
+         return _entityService.GetAllLandlords().Select(landlord => _mapper.Map<LandlordDto>(landlord));
+      }
 
         // GET: api/Landlords/5
         [HttpGet("{id}")]

@@ -6,7 +6,7 @@
       public string FirstName { get; set; }
       public string LastName { get; set; }
       public int Age { get; set; }
-      public Avatar Avatar { get; set; }
+      public Image Avatar { get; set; }
       public List<Location> Locations { get; set; }
       public int AvatarId { get; set; }
 

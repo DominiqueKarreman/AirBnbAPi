@@ -31,7 +31,7 @@
       public float PricePerDay { get; set; }
       public Features Features { get; set; }
       public string Description { get; set; }
-      public LocationType LocationType { get; set; }
+      public LocationType Type { get; set; }
 
       public int NumberOfGuests { get; set; }
 

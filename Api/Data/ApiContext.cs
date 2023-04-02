@@ -23,5 +23,6 @@ namespace Api.Data
         public DbSet<Api.Model.Customer> Customer { get; set; }
 
         public DbSet<Api.Model.Location> Location { get; set; }
+        public DbSet<Api.Model.Image> Image { get; set; }
     }
 }

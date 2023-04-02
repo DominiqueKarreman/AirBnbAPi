@@ -263,3 +263,8 @@ C:\Users\domik\source\repos\Api\Api\obj\Debug\net6.0\refint\Api.dll
 C:\Users\domik\source\repos\Api\Api\obj\Debug\net6.0\Api.pdb
 C:\Users\domik\source\repos\Api\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\Users\domik\source\repos\Api\Api\obj\Debug\net6.0\ref\Api.dll
+C:\Users\domik\source\repos\Api\Api\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\domik\source\repos\Api\Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\domik\source\repos\Api\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+C:\Users\domik\source\repos\Api\Api\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\domik\source\repos\Api\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
