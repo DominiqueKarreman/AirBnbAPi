@@ -1,6 +1,7 @@
 ﻿using Api.Model;
 using Api.Model.DTO;
 using Api.Repositories;
+using AutoMapper;
 
 namespace Api.Services
 
@@ -8,10 +9,12 @@ namespace Api.Services
    public class EntityService : IEntityService
    {
       private readonly IEntityRepository _entityRepository;
-   
-      public EntityService(IEntityRepository entityRepository)
+      private readonly IMapper _mapper;
+
+      public EntityService(IEntityRepository entityRepository, IMapper mapper)
       {
          _entityRepository = entityRepository;
+         _mapper = mapper;
       }
 
       public IEnumerable<Landlord> GetAllLandlords()
@@ -19,9 +22,12 @@ namespace Api.Services
          return _entityRepository.GetAllLandlords();
       }
 
-      public IEnumerable<Location> GetAllLocations()
+      public async Task<IEnumerable<LocationDto>> GetAllLocations(CancellationToken cancellationToken)
       {
-         return _entityRepository.GetAllLocations();
+         var locations = await _entityRepository.GetAllLocations(cancellationToken);
+         var locationDtos = locations.Select(location => _mapper.Map<LocationDto>(location));
+         return locationDtos;
+
       }
 
       public Landlord GetLandlord(int id)
@@ -29,9 +35,17 @@ namespace Api.Services
          throw new NotImplementedException();
       }
 
-      public IEnumerable<LocationWithImageDto> GetLocationsWithImage()
+      public async Task<IEnumerable<LocationWithImageDto>> GetLocationsWithImage(CancellationToken cancellationToken)
       {
-          return _entityRepository.GetLocationsWithImage();
+         var locations = await _entityRepository.GetLocationsWithImage(cancellationToken);
+         var locationDtos = _mapper.Map<IEnumerable<LocationWithImageDto>>(locations);
+         return locationDtos;
+      }
+      public async Task<IEnumerable<LocationWithPriceDto>> GetLocationsWithPrice(CancellationToken cancellationToken)
+      {
+         var locations = await _entityRepository.GetLocationsWithImage(cancellationToken);
+         var locationDtos = _mapper.Map<IEnumerable<LocationWithPriceDto>>(locations);
+         return locationDtos;
       }
    }
 }

@@ -7,9 +7,10 @@ namespace Api.Repositories
    {
       public IEnumerable<Landlord> GetAllLandlords();
       public Landlord GetLandlord(int id);
-      public IEnumerable<Location> GetAllLocations();
-      public IEnumerable<LocationWithImageDto> GetLocationsWithImage();
-
-      
+      public Task<IEnumerable<Location>> GetAllLocations(CancellationToken cancellationToken);
+      public Task<IEnumerable<Location>> GetLocationsWithImage(CancellationToken cancellationToken);
+      public Task<IEnumerable<Location>> GetLocationsWithPrice(CancellationToken cancellationToken);
+      public Task<IEnumerable<Location>> Search(CancellationToken cancellationToken, SearchDto search);
+     
    }
 }

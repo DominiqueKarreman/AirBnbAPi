@@ -17,7 +17,7 @@ namespace Api.Model
          {
             Image landlordAvatar = new Image()
             {
-               Url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.houseplans.com%2Fblog%2Fbuild-an-airbnb-home-its-not-just-for-millennials&psig=AOvVaw0jAjrxWFMRdiTK2lTyER_l&ust=1680346481273000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKDXxcuAhv4CFQAAAAAdAAAAABAE",
+               Url = "https://media.nhnieuws.nl/images/326179.e418077.jpg?width=1000&ratio=16:9&quality=70",
                IsCover = false,
             };
            
@@ -64,7 +64,7 @@ namespace Api.Model
             };
             Image img2 = new Image()
             {
-               Url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.housebeautiful.com%2Flifestyle%2Fg21600970%2Fluxury-retreats-airbnb%2F&psig=AOvVaw0jAjrxWFMRdiTK2lTyER_l&ust=1680346481273000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKDXxcuAhv4CFQAAAAAdAAAAABAJ",
+               Url = "https://media.cntraveler.com/photos/61a60b14e663d9fce4b711c1/1:1/w_800,h_801,c_limit/Airbnb%2039271504.jpg",
                IsCover = true,
                LocationId = frankie.Id,
             };

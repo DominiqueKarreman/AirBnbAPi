@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Api.Data;
 using Api;
-using Api.Service;
+
 using Api.Services;
 using Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -22,24 +22,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
-builder.Services.AddScoped<IStudentService, StudentDatabaseService>();
 builder.Services.AddScoped<IEntityService, EntityService>();
-builder.Services.AddScoped<ISchoolRepository, ShoolRepository>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IEntityRepository, EntityRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 
 builder.Services.AddApiVersioning(options => {
    options.AssumeDefaultVersionWhenUnspecified = true;
-   options.DefaultApiVersion = new ApiVersion(1, 0);
-   options.ApiVersionReader = new UrlSegmentApiVersionReader();
+   /*options.DefaultApiVersion = new ApiVersion(1, 0);
+   options.ApiVersionReader = new UrlSegmentApiVersionReader();*/
 });
 
 builder.Services.AddVersionedApiExplorer(setup =>
 {
    setup.GroupNameFormat = "'v'VVV";
    setup.SubstituteApiVersionInUrl = true;
-
 });
 
 

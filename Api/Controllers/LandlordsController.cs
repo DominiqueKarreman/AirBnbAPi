@@ -9,7 +9,7 @@ using Api.Data;
 using Api.Model;
 using Api.Model.DTO;
 using Api.Services;
-using Api.Service;
+
 using AutoMapper;
 
 namespace Api.Controllers

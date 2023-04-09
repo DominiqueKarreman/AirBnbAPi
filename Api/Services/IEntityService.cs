@@ -8,7 +8,9 @@ namespace Api.Services
       public IEnumerable<Landlord> GetAllLandlords();
       public Landlord GetLandlord(int id);
 
-      public IEnumerable<Location> GetAllLocations();
-      public IEnumerable<LocationWithImageDto> GetLocationsWithImage();
+      public Task<IEnumerable<LocationDto>> GetAllLocations(CancellationToken cancellationToken);
+      public Task<IEnumerable<LocationWithImageDto>> GetLocationsWithImage(CancellationToken cancellationToken);
+      public Task<IEnumerable<LocationWithPriceDto>> GetLocationsWithPrice(CancellationToken cancellationToken);
+
    }
 }

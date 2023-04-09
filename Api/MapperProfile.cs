@@ -10,6 +10,13 @@ namespace Services
         {
             CreateMap<Landlord, LandlordDto>();
             CreateMap<Location, LocationDto>();
-        }
+         CreateMap<Location, LocationWithImageDto>()
+           .ForMember(location => location.ImageURL, opt => opt.MapFrom(src => src.Images.Where(i => i.IsCover == true).FirstOrDefault().Url));
+         CreateMap<Location, LocationWithPriceDto>()
+          .ForMember(location => location.ImageURL, opt => opt.MapFrom(src => src.Images.Where(i => i.IsCover == true ).FirstOrDefault().Url))
+          .ForMember(location => location.Price, opt => opt.MapFrom(src => src.PricePerDay));
+       
+      
+      }
     }
 }

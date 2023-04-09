@@ -10,11 +10,12 @@ using Api.Model;
 using Api.Services;
 using AutoMapper;
 using Api.Model.DTO;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Api.Controllers
 {
    [Route("api/[controller]")]
-   /*[Route("api/v{version:apiVersion}/[controller]")]*/
+   [Route("api/v{version:apiVersion}/[controller]")]
    [ApiVersion("1.0")]
    [ApiController]
    public class LocationsController : ControllerBase
@@ -22,22 +23,24 @@ namespace Api.Controllers
 
       private readonly ApiContext _context;
       private readonly IEntityService _entityService;
+      private readonly ISearchService _searchService;
       private readonly IMapper _mapper;
 
-      public LocationsController(ApiContext context, IEntityService entityService, IMapper mapper)
+      public LocationsController(ApiContext context, IEntityService entityService, IMapper mapper, ISearchService searchService)
       {
          _context = context;
          _entityService = entityService;
          _mapper = mapper;
+         _searchService = searchService;
       }
 
 
 
       // GET: api/Locations
       [HttpGet("GetAll")]
-      public IEnumerable<LocationDto> GetLocation()
+      public async Task<IEnumerable<LocationDto>> GetLocation(CancellationToken cancellationToken)
       {
-         return _entityService.GetAllLocations().Select(location => _mapper.Map<LocationDto>(location));
+         return await _entityService.GetAllLocations(cancellationToken);
       }
 
       // GET: api/Locations/5
@@ -59,63 +62,24 @@ namespace Api.Controllers
       }
 
       [HttpGet]
-      public async Task<ActionResult<Location>> GetLocations()
+      public async Task<IEnumerable<LocationWithImageDto>> GetLocations(CancellationToken cancellationToken)
       {
-        IEnumerable<LocationWithImageDto> locations = _entityService.GetLocationsWithImage();
+         var locations = await _entityService.GetLocationsWithImage(cancellationToken);
          if (!locations.Any())
          {
-            return BadRequest();
-
+            return new List<LocationWithImageDto>();
          }
-         return Ok(locations);
+         return locations;
 
       }
-
-      // PUT: api/Locations/5
-      // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-      [HttpPut("{id}")]
-      public async Task<IActionResult> PutLocation(int id, Location location)
-      {
-         if (id != location.Id)
-         {
-            var tset = "";
-            return BadRequest();
-         }
-
-         _context.Entry(location).State = EntityState.Modified;
-
-         try
-         {
-            await _context.SaveChangesAsync();
-         }
-         catch (DbUpdateConcurrencyException)
-         {
-            if (!LocationExists(id))
-            {
-               return NotFound();
-            }
-            else
-            {
-               throw;
-            }
-         }
-
-         return NoContent();
-      }
-
       // POST: api/Locations
       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-      [HttpPost]
-      public async Task<ActionResult<Location>> PostLocation(Location location)
+      [HttpPost("Search")]
+      public async Task<IEnumerable<LocationWithPriceDto>> PostLocation([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] SearchDto search, CancellationToken cancellationToken)
       {
-         if (_context.Location == null)
-         {
-            return Problem("Entity set 'ApiContext.Location'  is null.");
-         }
-         _context.Location.Add(location);
-         await _context.SaveChangesAsync();
-
-         return CreatedAtAction("GetLocation", new { id = location.Id }, location);
+         var locations = await _searchService.Search(cancellationToken, search);
+         return locations;
+        
       }
 
       // DELETE: api/Locations/5

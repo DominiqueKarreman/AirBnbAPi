@@ -16,8 +16,8 @@ using Api.Model.DTO;
 namespace Api.Controllers.v2._0
 {
     [Route("api/[controller]")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("2.0")]
+   [Route("api/v{version:apiVersion}/[controller]")]
+   [ApiVersion("2.0")]
     [ApiController]
     public class LocationsController : ControllerBase
     {
@@ -33,13 +33,25 @@ namespace Api.Controllers.v2._0
          _mapper = mapper;
       }
 
-   
+      [HttpGet]
+      public async Task<IEnumerable<LocationWithPriceDto>> GetLocations(CancellationToken cancellationToken)
+      {
+         var locations = await _entityService.GetLocationsWithPrice(cancellationToken);
+         if (!locations.Any())
+         {
 
-        // GET: api/Locations
-        [HttpGet("GetAll")]
-        public IEnumerable<LocationDto> GetLocation()
+            return new List<LocationWithPriceDto>();
+         }
+         return locations;
+
+      }
+
+
+      // GET: api/Locations
+      [HttpGet("GetAll")]
+      public async Task<IEnumerable<LocationDto>> GetLocation(CancellationToken cancellationToken)
         {
-         return _entityService.GetAllLocations().Select(location => _mapper.Map<LocationDto>(location));
+         return await _entityService.GetAllLocations(cancellationToken);
         }
 
         // GET: api/Locations/5
@@ -59,18 +71,7 @@ namespace Api.Controllers.v2._0
 
             return location;
         }
-      [HttpGet]
-      public async Task<ActionResult<Location>> GetLocations()
-      {
-         IEnumerable<LocationWithImageDto> locations = _entityService.GetLocationsWithImage();
-         if (!locations.Any())
-         {
-            return BadRequest();
-
-         }
-         return Ok();
-
-      }
+      
       // PUT: api/Locations/5
       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
       [HttpPut("{id}")]

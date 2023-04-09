@@ -16,7 +16,7 @@ namespace Api.Data
         {
         }
 
-        public DbSet<Api.Model.Student> Student { get; set; } = default!;
+
 
         public DbSet<Api.Model.Landlord> Landlord { get; set; }
 
