@@ -2,6 +2,7 @@
 using Api.Model;
 using Api.Model.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Validations;
 using NuGet.Common;
 
 namespace Api.Repositories
@@ -51,21 +52,23 @@ namespace Api.Repositories
          var locations = await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).ToListAsync(cancellationToken);
          return locations;
       }
-      public async Task<IEnumerable<Location>> Search(CancellationToken cancellationToken, SearchDto search)
+      public async Task<int> GetMaxPrice(CancellationToken cancellationToken)
       {
-         /*var locations = _context.Location.Where()*/
-         Console.WriteLine(search);
-         if (search.Features == null && search.Rooms == null && search.MinPrice == null && search.MaxPrice == null)
-         {
-            var locationsWithoutFilterAndRooms =  await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).ToListAsync(cancellationToken);
-            return locationsWithoutFilterAndRooms;
-         }
-         else if (search.Features == null && search.MinPrice == null && search.MaxPrice == null)
-         {
-            var locationsWithoutFilter = await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).Where(location => location.Rooms >= search.Rooms).ToListAsync(cancellationToken);
-            return locationsWithoutFilter;
-         }
-         return new List<Location>();
+
+         return await _context.Location.MaxAsync(location => (int)location.PricePerDay, cancellationToken); 
+
+      }
+      public async Task<Location> GetDetails(CancellationToken cancellationToken, int Id)
+      {
+         return await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).Where(location => location.Id == Id).FirstOrDefaultAsync(cancellationToken);
+      }
+
+      public async Task<IEnumerable<Reservation>> UnAvailableDates(CancellationToken cancellationToken, int Id)
+      {
+    
+         var reservations = await _context.Reservation.Where(reservation => reservation.LocationId == Id).ToListAsync(cancellationToken);
+      
+         return reservations;
       }
    }
 }

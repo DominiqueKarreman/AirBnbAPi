@@ -2,6 +2,7 @@
 using Api.Model.DTO;
 using Api.Repositories;
 using AutoMapper;
+using Microsoft.CodeAnalysis;
 
 namespace Api.Services
 
@@ -46,6 +47,41 @@ namespace Api.Services
          var locations = await _entityRepository.GetLocationsWithImage(cancellationToken);
          var locationDtos = _mapper.Map<IEnumerable<LocationWithPriceDto>>(locations);
          return locationDtos;
+      }
+      public async Task<PriceDto> GetMaxPrice(CancellationToken cancellationToken)
+      {
+         var MaxPrice = await _entityRepository.GetMaxPrice(cancellationToken);
+         var priceDto = new PriceDto()
+         {
+            Price = MaxPrice
+         };
+         return priceDto;
+
+      }
+      public async Task<DetailDto> GetDetails(CancellationToken cancellationToken, int Id)
+      {
+         var location = await _entityRepository.GetDetails(cancellationToken, Id);
+         var detailDto = _mapper.Map<DetailDto>(location);
+         return detailDto;
+      }
+  
+
+      public async Task<UnAvailableDatesDto> UnAvailableDates(CancellationToken cancellationToken, int Id)
+      {
+         var reservations = await _entityRepository.UnAvailableDates(cancellationToken, Id);
+         List<ResidenceFromDto> residences = new List<ResidenceFromDto>();
+         UnAvailableDatesDto restrictedDates = new UnAvailableDatesDto();
+         foreach (var reservation in reservations)
+         {
+
+            ResidenceFromDto residence = new(reservation.StartDate, reservation.EndDate);
+            residence.GetDatesBetween();
+            foreach (var date in residence.Dates)
+            {
+               restrictedDates.UnAvailableDates.Add(date.Date);
+            }
+         }
+         return restrictedDates;
       }
    }
 }

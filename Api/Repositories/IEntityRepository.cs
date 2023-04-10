@@ -10,7 +10,9 @@ namespace Api.Repositories
       public Task<IEnumerable<Location>> GetAllLocations(CancellationToken cancellationToken);
       public Task<IEnumerable<Location>> GetLocationsWithImage(CancellationToken cancellationToken);
       public Task<IEnumerable<Location>> GetLocationsWithPrice(CancellationToken cancellationToken);
-      public Task<IEnumerable<Location>> Search(CancellationToken cancellationToken, SearchDto search);
-     
+
+      public Task<int> GetMaxPrice(CancellationToken cancellationToken);
+      public Task<Location> GetDetails(CancellationToken cancellationToken, int Id);
+      public Task<IEnumerable<Reservation>> UnAvailableDates(CancellationToken cancellationToken, int Id);
    }
 }

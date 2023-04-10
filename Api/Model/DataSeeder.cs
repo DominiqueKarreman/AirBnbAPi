@@ -1,4 +1,5 @@
 ﻿using Api.Data;
+using Microsoft.CodeAnalysis;
 
 namespace Api.Model
 {
@@ -45,7 +46,7 @@ namespace Api.Model
                NumberOfGuests = 12,
                PricePerDay = 300,
                Type = (LocationType)1,
-               Features = 0,
+               Features = Features.Smoking | Features.Breakfast,
 
             };
             Location frankie = new Location()
@@ -60,7 +61,8 @@ namespace Api.Model
                LandlordId = landlord.Id,
                PricePerDay = 400,
                Type = (LocationType)0,
-               Features = 0,
+               Features = Features.Bath | Features.Wifi
+
             };
             Image img2 = new Image()
             {
@@ -86,6 +88,28 @@ namespace Api.Model
                 };
 
             _context.Location.AddRange(Locations);
+            _context.SaveChanges();
+
+            var customer = new Customer()
+            {
+               FirstName = "Dominique",
+               LastName = "Karreman",
+               Email = "Domikar2010@hotmail.com",
+
+            };
+            _context.Customer.Add(customer);
+            _context.SaveChanges();
+            var reservation = new Reservation()
+            {
+               Location = boerenhoeve,
+               LocationId = boerenhoeve.Id,
+               Discount = 20.00F,
+               StartDate = new DateTime(2023, 04, 20),
+               EndDate = new DateTime(2024, 04, 25),
+               CustomerId = customer.Id,
+               Customer = customer,
+            };
+            customer.Reservations.Add(reservation);
             _context.SaveChanges();
          }
       }

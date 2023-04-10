@@ -18,10 +18,28 @@ namespace Api.Services
       }
       public async Task<IEnumerable<LocationWithPriceDto>> Search(CancellationToken cancellationToken, SearchDto search)
       {
-         var searched = await _entityRepository.Search(cancellationToken, search);
-        
-         var locationDtos = _mapper.Map<IEnumerable<LocationWithPriceDto>>(searched);
-     
+         var locations = await _entityRepository.GetLocationsWithPrice(cancellationToken);
+         if (search.Features.HasValue)
+         {
+            locations = locations.Where(location => (int)location.Features == search.Features);
+         }
+         if (search.MinPrice.HasValue)
+         {
+            locations = locations.Where(location => location.PricePerDay >= search.MinPrice);
+         }
+         if (search.MaxPrice.HasValue)
+         {
+            locations = locations.Where(location => location.PricePerDay <= search.MaxPrice);
+         }
+         if (search.Type.HasValue)
+         {
+            locations = locations.Where(location => (int)location.Type == search.Type);
+         }
+         if (search.Rooms.HasValue)
+         {
+            locations = locations.Where(location => location.Rooms >= search.Rooms);
+         }
+         var locationDtos = _mapper.Map<IEnumerable<LocationWithPriceDto>>(locations);
          return locationDtos;
       }
    }

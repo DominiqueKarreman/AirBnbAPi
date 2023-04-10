@@ -72,6 +72,11 @@ namespace Api.Controllers
          return locations;
 
       }
+      [HttpGet("GetMaxPrice")]
+      public async Task<PriceDto> GetMaxPrice(CancellationToken cancellationToken)
+      {
+        return await _entityService.GetMaxPrice(cancellationToken);
+      }
       // POST: api/Locations
       // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
       [HttpPost("Search")]
@@ -82,6 +87,19 @@ namespace Api.Controllers
         
       }
 
+      [HttpGet("GetDetails/{id}")]
+      public async Task<DetailDto> GetDetails(CancellationToken cancellationToken, int Id)
+      {
+         var location = await _entityService.GetDetails(cancellationToken, Id);
+         return location;
+
+      }
+      [HttpGet("UnAvailableDates/{id}")]
+      public async Task<UnAvailableDatesDto> UnAvailableDates(CancellationToken cancellationToken, int Id)
+      {
+         var dates = await _entityService.UnAvailableDates(cancellationToken, Id);
+         return dates;
+      }
       // DELETE: api/Locations/5
       [HttpDelete("{id}")]
       public async Task<IActionResult> DeleteLocation(int id)
@@ -101,7 +119,7 @@ namespace Api.Controllers
 
          return NoContent();
       }
-
+      
       private bool LocationExists(int id)
       {
          return (_context.Location?.Any(e => e.Id == id)).GetValueOrDefault();
