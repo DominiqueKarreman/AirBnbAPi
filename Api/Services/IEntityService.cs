@@ -16,6 +16,7 @@ namespace Api.Services
       public Task<DetailDto> GetDetails(CancellationToken cancellationToken, int Id);
 
       public Task<UnAvailableDatesDto> UnAvailableDates(CancellationToken cancellationToken, int Id);
+      public Task<ReservationResponseDto> StoreReservation(CancellationToken cancellationToken, ReservationRequestDto request);
      
    }
 }

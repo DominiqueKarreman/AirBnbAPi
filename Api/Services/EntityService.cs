@@ -3,6 +3,7 @@ using Api.Model.DTO;
 using Api.Repositories;
 using AutoMapper;
 using Microsoft.CodeAnalysis;
+using System.Linq;
 
 namespace Api.Services
 
@@ -64,8 +65,32 @@ namespace Api.Services
          var detailDto = _mapper.Map<DetailDto>(location);
          return detailDto;
       }
-  
 
+      public async Task<ReservationResponseDto> StoreReservation(CancellationToken cancellationToken, ReservationRequestDto request )
+      {
+         if (request == null) throw new ArgumentNullException(nameof(request));
+         Customer customerFromRequest = _mapper.Map<Customer>(request);
+         var customer = await _entityRepository.GetCustomer(cancellationToken, customerFromRequest);
+         var location = await _entityRepository.GetDetails(cancellationToken, request.LocationId);
+        
+         var unAvailableDates = await UnAvailableDates(cancellationToken, location.Id);
+         ResidenceFromDto residence = new(request.StartDate, request.EndDate);
+         residence.GetDatesBetween();
+         bool hasDuplicate = unAvailableDates.UnAvailableDates.Intersect(residence.Dates).Any();
+         if (hasDuplicate)
+         {
+            throw new InvalidOperationException("De geslecteerde data heeft al gereserveerde data ertussen");
+            return new ReservationResponseDto();
+         }
+
+   
+
+         var reservation = await _entityRepository.MakeReservation(cancellationToken, customer, request, location);
+         Console.WriteLine(reservation);
+         var ReservationResponseDto = _mapper.Map<ReservationResponseDto>(reservation);
+         Console.WriteLine(ReservationResponseDto);
+         return ReservationResponseDto;
+      }
       public async Task<UnAvailableDatesDto> UnAvailableDates(CancellationToken cancellationToken, int Id)
       {
          var reservations = await _entityRepository.UnAvailableDates(cancellationToken, Id);
@@ -78,7 +103,8 @@ namespace Api.Services
             residence.GetDatesBetween();
             foreach (var date in residence.Dates)
             {
-               restrictedDates.UnAvailableDates.Add(date.Date);
+
+               restrictedDates.UnAvailableDates.Add(date.Date.AddHours(22));
             }
          }
          return restrictedDates;

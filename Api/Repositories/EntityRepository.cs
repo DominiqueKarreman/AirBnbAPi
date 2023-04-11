@@ -52,6 +52,7 @@ namespace Api.Repositories
          var locations = await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).ToListAsync(cancellationToken);
          return locations;
       }
+     
       public async Task<int> GetMaxPrice(CancellationToken cancellationToken)
       {
 
@@ -60,7 +61,7 @@ namespace Api.Repositories
       }
       public async Task<Location> GetDetails(CancellationToken cancellationToken, int Id)
       {
-         return await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).Where(location => location.Id == Id).FirstOrDefaultAsync(cancellationToken);
+         return await _context.Location.Include(location => location.Landlord).ThenInclude(landlord => landlord.Avatar).Include(location => location.Images).Include(location => location.Reservations).Where(location => location.Id == Id).FirstOrDefaultAsync(cancellationToken);
       }
 
       public async Task<IEnumerable<Reservation>> UnAvailableDates(CancellationToken cancellationToken, int Id)
@@ -69,6 +70,40 @@ namespace Api.Repositories
          var reservations = await _context.Reservation.Where(reservation => reservation.LocationId == Id).ToListAsync(cancellationToken);
       
          return reservations;
+      }
+      public async Task<Customer> GetCustomer(CancellationToken cancellationToken, Customer customerFromRequest)
+      {
+
+         var customer = await _context.Customer.Where(customer => customer.Email == customerFromRequest.Email).FirstOrDefaultAsync(cancellationToken);
+            if (customer == null)
+            {
+            customer = customerFromRequest;
+            await _context.Customer.AddAsync(customer, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+         }
+       
+         return customer;
+      }
+
+      public async Task<Reservation> MakeReservation(CancellationToken cancellationToken, Customer customer, ReservationRequestDto request, Location location)
+      {
+         var reservation = new Reservation()
+         {
+            LocationId = location.Id,
+            Location = location,
+            Customer = customer,
+            Discount = request.Discount ?? 0,
+            CustomerId = customer.Id,
+            StartDate = request.StartDate,
+            EndDate = request.EndDate,
+         };
+
+         await _context.Reservation.AddAsync(reservation, cancellationToken);
+         await _context.SaveChangesAsync(cancellationToken);
+
+         var reservationLocation = reservation.Location;
+         Console.WriteLine(reservationLocation);
+         return reservation;
       }
    }
 }

@@ -11,7 +11,11 @@ namespace Services
             CreateMap<Landlord, LandlordDto>();
             CreateMap<int, PriceDto>();
 
-   
+         CreateMap<ReservationRequestDto, Customer>();
+         CreateMap<Reservation, ReservationResponseDto>()
+       .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.Location.Title))
+       .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.FirstName + " " + src.Customer.LastName))
+       .ForMember(dest => dest.Price, opt => opt.MapFrom<ReservationToPriceResolver>());
 
          CreateMap<Location, LocationDto>();
          CreateMap<Location, LocationWithImageDto>()
@@ -25,5 +29,15 @@ namespace Services
            
 
       }
-    }
+      public class ReservationToPriceResolver : IValueResolver<Reservation, ReservationResponseDto, float>
+      {
+         public float Resolve(Reservation source, ReservationResponseDto destination, float destMember, ResolutionContext context)
+         {
+            TimeSpan timeBetweenStartEnd = source.EndDate - source.StartDate;
+            int daysBetween = timeBetweenStartEnd.Days;
+            float price = source.Location.PricePerDay * daysBetween;
+            return price;
+         }
+      }
+   }
 }
