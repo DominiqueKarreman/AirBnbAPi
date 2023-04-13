@@ -11,7 +11,7 @@ using Api.Controllers.Options;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Api.Model;
 using System.Reflection;
-
+//S1169919 Dominique Karreman
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApiContext>(
     options =>
