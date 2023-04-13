@@ -17,23 +17,10 @@ namespace Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Api.Model.Avatar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Avatar");
-                });
 
             modelBuilder.Entity("Api.Model.Customer", b =>
                 {
@@ -71,10 +58,7 @@ namespace Api.Migrations
                     b.Property<bool>("IsCover")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LandLordId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LocationId")
+                    b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -82,8 +66,6 @@ namespace Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LandLordId");
 
                     b.HasIndex("LocationId");
 
@@ -137,9 +119,6 @@ namespace Api.Migrations
                     b.Property<int>("LandlordId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationType")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumberOfGuests")
                         .HasColumnType("int");
 
@@ -156,6 +135,9 @@ namespace Api.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -196,47 +178,16 @@ namespace Api.Migrations
                     b.ToTable("Reservation");
                 });
 
-            modelBuilder.Entity("Api.Model.Student", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Student");
-                });
-
             modelBuilder.Entity("Api.Model.Image", b =>
                 {
-                    b.HasOne("Api.Model.Landlord", "Landlord")
-                        .WithMany()
-                        .HasForeignKey("LandLordId");
-
-                    b.HasOne("Api.Model.Location", "Location")
+                    b.HasOne("Api.Model.Location", null)
                         .WithMany("Images")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Landlord");
-
-                    b.Navigation("Location");
+                        .HasForeignKey("LocationId");
                 });
 
             modelBuilder.Entity("Api.Model.Landlord", b =>
                 {
-                    b.HasOne("Api.Model.Avatar", "Avatar")
+                    b.HasOne("Api.Model.Image", "Avatar")
                         .WithMany()
                         .HasForeignKey("AvatarId")
                         .OnDelete(DeleteBehavior.Cascade)
