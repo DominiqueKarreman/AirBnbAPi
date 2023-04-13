@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Api</name>
+    </assembly>
+    <members>
+        <member name="M:Api.Controllers.LocationsController.GetLocationsWithImages(System.Threading.CancellationToken)">
+            <summary>
+            Geeft alle locaties terug met fotos. Week 4
+            </summary>
+            <returns>Een lijst met alle locaties.</returns>
+            <remarks>
+            Deze functie haalt alle locaties op uit de database vanuit de service naar de repository.
+            Er word een cancellation token mee gegeven zodat de request geannuleerd kan worden.
+            het response type is ActionResult LocationWithImageDto. dus we verwachten een lijst van LocationWithImageDto.
+            gepaard met de status code van onze acties
+            </remarks>
+            <response code="200">Lijst met alle locaties.</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de locaties</response>
+        </member>
+        <member name="M:Api.Controllers.LocationsController.GetLocation(System.Threading.CancellationToken)">
+            <summary>
+            Geeft alle locaties terug. Week 3
+            </summary>
+            <returns>Een lijst met alle locaties.</returns>
+            <remarks>
+            Deze functie haalt alle locaties op uit de database vanuit de service naar de repository.
+            Er word een cancellation token mee gegeven zodat de request geannuleerd kan worden.
+            het response type is ActionResult Location. dus we verwachten een lijst van locaties.
+            gepaard met de status code van onze acties
+            </remarks>
+            <response code="200">Lijst met alle locaties.</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de locaties</response>
+        </member>
+        <member name="M:Api.Controllers.LocationsController.GetMaxPrice(System.Threading.CancellationToken)">
+            <summary>
+            Geeft de Hoogste prijs van alle locaties terug uit de database als een PriceDto. Week 6
+            </summary>
+            <returns>Een lijst met alle locaties.</returns>
+            <remarks>
+            Deze functie haalt de hoogste prijs van de locaties op en stuurt het terug als een response van het type
+            PriceDto gepaard met de status code van onze acties
+            </remarks>
+            <response code="200">Hoogste prijs van de locaties</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de hoogste prijs</response>
+        </member>
+        <member name="M:Api.Controllers.LocationsController.GetDetails(System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Geeft alle informatie over een locatie met de id:{id}. Week 6
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <param name="id">Id van de locatie</param>
+            <returns>returned een locatie met alle informatie</returns>
+            <remarks>
+            Deze functie returned een locatie met alle informatie om te kunnen boeken.
+            Het response type van de functie is ActionResult DetailDto dus we verwachten een detaildto
+            gepaard met de juiste status code
+            </remarks>
+            <response code="200">Details van locatie: {id}</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de details van locatie: {id} prijs</response>
+            <response code="404">Kon de locatie: {id} niet vinden in de database</response>
+        </member>
+        <member name="M:Api.Controllers.LocationsController.UnAvailableDates(System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Haalt unavailable dates op van locatie met id:{id}. Week 7
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <param name="id">Id van de locatie</param>
+            <returns>returned een UnavailableDatesDto met de unavailable datums</returns>
+            <remarks>
+            Deze functie returned een UnavailableDatesDto waarin de datums die niet beschikbaar zijn gereturned worden
+            Het response type van de functie is UnavailableDatesDto  dus we verwachten een UnavailableDatesDto
+            gepaard met de juiste status code
+            </remarks>
+            <response code="200">Unavailable dates van locatie: {id}</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de Unavailable dates van locatie: {id} prijs</response>
+            <response code="404">Kon de locatie: {id} niet vinden in de database</response>
+        </member>
+        <member name="M:Api.Controllers.LocationsController.PostLocation(Api.Model.DTO.SearchDto,System.Threading.CancellationToken)">
+            <summary>
+            Haalt locaties op door middel van filters. Week 6
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <returns>returned een lijst met locaties gefiltered met de search method</returns>
+            <remarks>
+            Deze functie returned een Locatie die gefiltered is met de search method
+            Het response type van de functie is ActionResult LocationWithPriceDto dus we verwachten een LocationWithPriceDto
+            gepaard met de juiste status code
+            </remarks>
+            <response code="200">Lijst met Locaties</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de Locaties: {id} prijs</response>
+        </member>
+        <member name="M:Api.Controllers.ReservationsController.PostReservation(Api.Model.DTO.ReservationRequestDto,System.Threading.CancellationToken)">
+            <summary>
+            Handled een reservatie request: Week 7
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <returns>returned een ReservationResponseDto</returns>
+            <remarks>
+            Deze functie slaat een reservation request op en maakt een customer aan indien nog niet gebeurd
+            de reservatie word omgemapt naar een ReservationResponseDto en word gereturned
+            gepaard met de juiste status code
+            </remarks>
+            <response code="200">ReservationResponseDto</response>
+            <response code="400">Er is iets fout gegaan bij het aanmaken van de reservatie</response>
+        </member>
+        <member name="M:Api.Controllers.v2._0.LocationsController.GetLocations(System.Threading.CancellationToken)">
+            <summary>
+            Geeft alle locaties terug. Week 5
+            </summary>
+            <returns>Een lijst met alle locaties.</returns>
+            <remarks>
+            Deze functie haalt alle locaties op uit de database vanuit de service naar de repository.
+            Er word een cancellation token mee gegeven zodat de request geannuleerd kan worden.
+            het response type is ActionResult LocationWithPriceDto. dus we verwachten een lijst van LocationWithPriceDto.
+            gepaard met de status code van onze acties
+            </remarks>
+            <response code="200">Lijst met alle locaties.</response>
+            <response code="400">Er is iets fout gegaan bij het ophalen van de locaties</response>
+        </member>
+        <member name="T:Api.Repositories.IEntityRepository">
+            <summary>
+            Interface voor het ophalen van gegevens uit de database.
+            </summary>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.GetAllLocations(System.Threading.CancellationToken)">
+            <summary>
+            Haalt alle locaties op uit de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <returns>Een lijst met locaties.</returns>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.GetAllLocationsV2(System.Threading.CancellationToken)">
+            <summary>
+            Haalt alle locaties op uit de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <returns>Een lijst met locaties.</returns>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.GetCustomer(System.Threading.CancellationToken,Api.Model.Customer)">
+            <summary>
+            Haalt een klant op uit de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <param name="customerFromRequest">customerFromRequest.</param>
+            <returns>customer</returns>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.GetMaxPrice(System.Threading.CancellationToken)">
+            <summary>
+            Haalt de hoogste prijs op uit de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <returns>De hoogste prijs.</returns>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.GetDetails(System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Haalt de details van een locatie op uit de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <param name="Id">Locatie-ID.</param>
+            <returns>Een locatie.</returns>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.MakeReservation(System.Threading.CancellationToken,Api.Model.Customer,Api.Model.DTO.ReservationRequestDto,Api.Model.Location)">
+            <summary>
+            Maakt een nieuwe reservering aan en slaat deze op in de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <param name="customer">customer.</param>
+            <param name="request">request.</param>
+            <param name="location">Locatieobject.</param>
+            <returns>Een Reservering.</returns>
+        </member>
+        <member name="M:Api.Repositories.IEntityRepository.UnAvailableDates(System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Haalt de lijst met unavailabledates van een locatie op uit de database.
+            </summary>
+            <param name="cancellationToken">cancellationToken.</param>
+            <param name="Id">Locatie-ID.</param>
+            <returns>Een lijst met reserveringen.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.GetAllLocations(System.Threading.CancellationToken)">
+            <summary>
+            Haalt alle locaties op.
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <returns>Een lijst van alle locaties.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.GetLocationsWithImage(System.Threading.CancellationToken)">
+            <summary>
+            Haalt alle locaties op, inclusief foto
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <returns>Een lijst van alle locaties met foto.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.GetLocationsWithPrice(System.Threading.CancellationToken)">
+            <summary>
+            Haalt alle locaties op, inclusief prijs
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <returns>Een lijst van alle locaties met prijs.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.GetMaxPrice(System.Threading.CancellationToken)">
+            <summary>
+            Haalt de maximale prijs van alle locaties op.
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <returns>De hoogste prijs van alle locaties.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.GetDetails(System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Haalt details op van een locatie met id: {id}
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <param name="Id">De Id van de locatie waarvoor details worden opgehaald.</param>
+            <returns>Een object met de details van de locatie.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.UnAvailableDates(System.Threading.CancellationToken,System.Int32)">
+            <summary>
+            Haalt unavailabledates op voor een specifieke locatie.
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <param name="Id">De Id van de locatie waarvoor unavailable dates worden opgehaald.</param>
+            <returns>unavailable dates van de locatie.</returns>
+        </member>
+        <member name="M:Api.Services.IEntityService.StoreReservation(System.Threading.CancellationToken,Api.Model.DTO.ReservationRequestDto)">
+            <summary>
+            Slaat een nieuwe reservering op.
+            </summary>
+            <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+            <param name="request">De gegevens van de nieuwe reservering.</param>
+            <returns>ReservationResponseDto van de opgeslagen reservering.</returns>
+        </member>
+    </members>
+</doc>

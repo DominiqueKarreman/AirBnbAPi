@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dpdZea1WjSOTyYi1C0b2aOaJkjpagAtKtKPw0LI+SNIXcnZpsYmjmtfgp1DH0CZryPFiYcNdKztIGdC3mmUBHg==",
+  "dgSpecHash": "eac2hYWtKKe7UtjTO3L4WsM9mJ6mS9bfROmhvasXHe1KwR6kDi99gZPd5eoQOF0lwCOnWiwGyOokbufcx3jxcg==",
   "success": true,
   "projectFilePath": "C:\\xampp\\htdocs\\AirBnbApi\\Api\\Api.csproj",
   "expectedPackageFiles": [
@@ -102,7 +102,7 @@
     "C:\\Users\\domik\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\domik\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\domik\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
-    "C:\\Users\\domik\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\domik\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\domik\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
     "C:\\Users\\domik\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
     "C:\\Users\\domik\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",

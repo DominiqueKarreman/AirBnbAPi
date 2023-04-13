@@ -2,8 +2,11 @@
 
 namespace Api.Services
 {
-   public interface ISearchService
-   {
-      public Task<IEnumerable<LocationWithPriceDto>> Search(CancellationToken cancellationToken, SearchDto search);
-   }
+    public interface ISearchService
+    {
+        public Task<IEnumerable<LocationWithPriceDto>> Search(
+            CancellationToken cancellationToken,
+            SearchDto search
+        );
+    }
 }

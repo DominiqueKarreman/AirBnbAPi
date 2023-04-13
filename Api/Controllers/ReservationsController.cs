@@ -17,44 +17,61 @@ namespace Api.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
+        private readonly ApiContext _context;
+        private readonly IEntityService _entityService;
+        private readonly ISearchService _searchService;
+        private readonly IMapper _mapper;
 
-      private readonly ApiContext _context;
-      private readonly IEntityService _entityService;
-      private readonly ISearchService _searchService;
-      private readonly IMapper _mapper;
-
-      public ReservationsController(ApiContext context, IEntityService entityService, IMapper mapper, ISearchService searchService)
-      {
-         _context = context;
-         _entityService = entityService;
-         _mapper = mapper;
-         _searchService = searchService;
-      }
-
-        // POST: api/Reservations
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<ReservationResponseDto>> PostReservation(ReservationRequestDto request, CancellationToken cancellationToken)
+        public ReservationsController(
+            ApiContext context,
+            IEntityService entityService,
+            IMapper mapper,
+            ISearchService searchService
+        )
         {
-         try
-         {
-            ReservationResponseDto response = await _entityService.StoreReservation(cancellationToken, request);
-            return Ok(response);
-
-         }
-         catch (InvalidOperationException ex)
-         {
-            return Conflict("Er ging wat fout bij het aanmaken van je reservatie: " + ex.Message);
-         }
-         catch (Exception ex)
-         {
-            return BadRequest("Er ging wat fout bij het aanmaken van je reservatie: " + ex.Message);
-         }
+            _context = context;
+            _entityService = entityService;
+            _mapper = mapper;
+            _searchService = searchService;
         }
-
-        private bool ReservationExists(int id)
+      /// <summary>
+      /// Handled een reservatie request: Week 7
+      /// </summary>
+      /// <param name="cancellationToken">Een CancellationToken om de operatie te annuleren indien nodig.</param>
+      /// <returns>returned een ReservationResponseDto</returns>
+      /// <remarks>
+      /// Deze functie slaat een reservation request op en maakt een customer aan indien nog niet gebeurd
+      /// de reservatie word omgemapt naar een ReservationResponseDto en word gereturned
+      /// gepaard met de juiste status code
+      /// </remarks>
+      /// <response code="200">ReservationResponseDto</response>
+      /// <response code="400">Er is iets fout gegaan bij het aanmaken van de reservatie</response>
+      [HttpPost]
+        public async Task<ActionResult<ReservationResponseDto>> PostReservation(
+            ReservationRequestDto request,
+            CancellationToken cancellationToken
+        )
         {
-            return (_context.Reservation?.Any(e => e.Id == id)).GetValueOrDefault();
+            try
+            {
+                ReservationResponseDto response = await _entityService.StoreReservation(
+                    cancellationToken,
+                    request
+                );
+                return Ok(response);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(
+                    "Er ging wat fout bij het aanmaken van je reservatie: " + ex.Message
+                );
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    "Er ging wat fout bij het aanmaken van je reservatie: " + ex.Message
+                );
+            }
         }
     }
 }

@@ -538,3 +538,5 @@ C:\xampp\htdocs\AirBnbApi\Api\obj\Debug\net6.0\scopedcss\bundle\Api.styles.css
 C:\xampp\htdocs\AirBnbApi\Api\obj\Debug\net6.0\Api.csproj.CopyComplete
 C:\xampp\htdocs\AirBnbApi\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\xampp\htdocs\AirBnbApi\Api\obj\Debug\net6.0\ref\Api.dll
+C:\xampp\htdocs\AirBnbApi\Api\bin\Debug\net6.0\Api.xml
+C:\xampp\htdocs\AirBnbApi\Api\obj\Debug\net6.0\Api.xml

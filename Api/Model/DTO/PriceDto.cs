@@ -1,7 +1,7 @@
 ﻿namespace Api.Model.DTO
 {
-   public class PriceDto
-   {
-      public int Price { get; set; }
-   }
+    public class PriceDto
+    {
+        public int Price { get; set; }
+    }
 }
