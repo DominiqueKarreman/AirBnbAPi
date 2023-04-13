@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Composition.Convention;
 
 namespace Api.Model.DTO
@@ -9,19 +9,16 @@ namespace Api.Model.DTO
         public DateTime EndDate { get; set; }
         public int LocationId { get; set; }
         public float? Discount { get; set; }
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [StringLength(5)]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(2)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(2)]
-        public string LastName { get; set; }
+      [Required]
+      [DataType(DataType.EmailAddress)]
+      [MinLength(2)]
+      [EmailAddress]
+      public string Email { get; set; }
+      [Required]
+      [MinLength(2)]
+      public string FirstName { get; set; }
+      [Required]
+      [MinLength(2)]
+      public string LastName { get; set; }
     }
 }
