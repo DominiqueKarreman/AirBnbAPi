@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Api.Model;
 using Api.Model.Resolvers;
 using Api.Model.DTO;
@@ -14,7 +14,9 @@ namespace Services
          CreateMap<int, PriceDto>();
 
          CreateMap<ReservationRequestDto, Customer>();
-         CreateMap<int, PriceDto>();
+         CreateMap<int, PriceDto>()
+         .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src));
+
          CreateMap<Reservation, ReservationResponseDto>()
              .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.Location.Title))
              .ForMember(
