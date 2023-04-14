@@ -28,6 +28,13 @@ namespace Api.Model
                         Url =
                             "https://www.female-founders.org/wp-content/uploads/2022/10/Female_Founders_20222462-scaled-e1665747943211.jpg",
                         IsCover = false,
+                    };   
+            Image landlordAvatar3 =
+                    new()
+                    {
+                        Url =
+                            "https://www.hindustantimes.com/ht-img/img/2023/04/05/550x309/FILES-US-CELEBRITY-MARKETING-WEST-0_1667560734306_1667560734306_1680701243882_1680701243882.jpg",
+                        IsCover = false,
                     };
 
                 _context.SaveChanges();
@@ -48,6 +55,15 @@ namespace Api.Model
                     Avatar = landlordAvatar2,
                     Locations = new List<Location>(),
                     AvatarId = landlordAvatar2.Id
+                };   
+            Landlord landlord3 = new Landlord()
+                {
+                    FirstName = "Kanye",
+                    LastName = "West",
+                    Age = 45,
+                    Avatar = landlordAvatar3,
+                    Locations = new List<Location>(),
+                    AvatarId = landlordAvatar3.Id
                 };
                 _context.SaveChanges();
 
@@ -164,7 +180,35 @@ namespace Api.Model
                     Type = (LocationType)5,
                     Features = Features.Smoking | Features.Wifi | Features.Bath
                 };
-                Image img2 = new Image()
+            Location hetModerneAppartement = new Location()
+            {
+               Title = "Het Moderne Appartement",
+               SubTitle = "Een stijlvol verblijf in het hart van de stad",
+               Description =
+        "Dit moderne appartement is gelegen in het hart van de stad en biedt alle gemakken van thuis. Het beschikt over een lichte en luchtige woonkamer met grote ramen, een volledig uitgeruste keuken en twee slaapkamers met comfortabele bedden. Buiten vind je een gemeenschappelijk terras waar je kunt ontspannen na een dagje sightseeing. Het appartement is omringd door winkels, restaurants en bars, dus er is altijd iets te beleven!",
+               Rooms = 2,
+               NumberOfGuests = 4,
+               Landlord = landlord,
+               LandlordId = landlord.Id,
+               PricePerDay = 150,
+               Type = (LocationType)0,
+               Features = Features.Wifi | Features.TV | Features.Smoking
+            };
+            Location deGezelligeBoerderij = new Location()
+            {
+               Title = "De Gezellige Boerderij",
+               SubTitle = "Een rustiek verblijf op het platteland",
+               Description =
+                    "Deze gezellige boerderij is de perfecte plek om even te ontsnappen aan de drukte van de stad. Het is gelegen op het platteland en biedt rust en stilte, evenals een prachtig uitzicht op de natuur. De boerderij heeft vier slaapkamers, een ruime woonkamer met open haard en een volledig uitgeruste keuken. Buiten vind je een grote tuin met een overdekt terras, een barbecue en een zwembad. Perfect voor een gezinsvakantie of een weekendje weg met vrienden!",
+               Rooms = 4,
+               NumberOfGuests = 8,
+               Landlord = landlord3,
+               LandlordId = landlord3.Id,
+               PricePerDay = 250,
+               Type = (LocationType)2,
+               Features = Features.PetsAllowed | Features.TV | Features.Bath,
+            };
+            Image img2 = new Image()
                 {
                     Url =
                         "https://media.cntraveler.com/photos/61a60b14e663d9fce4b711c1/1:1/w_800,h_801,c_limit/Airbnb%2039271504.jpg",
@@ -486,9 +530,86 @@ namespace Api.Model
                     }
                 };
 
-                hetZonnigeAppartement.Images.AddRange(hetZonnigeAppartementImages);
-
-                var Locations = new List<Location>()
+            hetZonnigeAppartement.Images.AddRange(hetZonnigeAppartementImages);
+            var hetModerneAppartementImages = new List<Image>()
+                {
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/186c0318-0a61-4707-b1e2-6eec6a4c9edf.jpg?im_w=1200",
+                        IsCover = true,
+                        LocationId = hetModerneAppartement.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/miso/Hosting-37352977/original/61c5e449-21e6-425f-8ac2-763676f72dd6.jpeg?im_w=720",
+                        IsCover = false,
+                        LocationId = hetModerneAppartement.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/miso/Hosting-37352977/original/6eee3fc6-f435-4986-8c13-b052f442f219.jpeg?im_w=720",
+                        IsCover = false,
+                        LocationId = hetModerneAppartement.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/miso/Hosting-37352977/original/e98f7990-f8b0-4958-a279-44d0b34c174b.jpeg?im_w=720",
+                        IsCover = false,
+                        LocationId = hetModerneAppartement.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/miso/Hosting-37352977/original/f61998bc-17a4-4c41-ba8f-4eba6e0a84f0.jpeg?im_w=720",
+                        IsCover = false,
+                        LocationId = hetModerneAppartement.Id
+                    }
+                };
+            hetModerneAppartement.Images.AddRange(hetModerneAppartementImages);
+            var deGezelligeBoerderijImages = new List<Image>()
+                {
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/38a72303-236f-46db-9498-940a98339624.jpg?im_w=1200",
+                        IsCover = true,
+                        LocationId = deGezelligeBoerderij.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/cd7e2dc1-a11d-4457-abcd-fff49b1c662d.jpg?im_w=720",
+                        IsCover = false,
+                        LocationId = deGezelligeBoerderij.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/f4be31ee-f35a-4918-993f-dd578c4492e6.jpg?im_w=720",
+                        IsCover = false,
+                        LocationId = deGezelligeBoerderij.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/1b0697c2-95b2-4924-8d4f-fb4f9100813a.jpg?im_w=720",
+                        IsCover = false,
+                        LocationId = deGezelligeBoerderij.Id
+                    },
+                    new Image()
+                    {
+                        Url =
+                            "https://a0.muscache.com/im/pictures/c1a30450-38f7-4559-8242-e7d4b8175694.jpg?im_w=720",
+                        IsCover = false,
+                        LocationId = deGezelligeBoerderij.Id
+                    }
+                };
+            deGezelligeBoerderij.Images.AddRange(deGezelligeBoerderijImages);
+            var Locations = new List<Location>()
                 {
                     boerenhoeve,
                     frankie,
@@ -497,7 +618,9 @@ namespace Api.Model
                     location3,
                     deHoutenChalet,
                     hetZonnigeAppartement,
-                    hetLuxeStrandhuis
+                    hetLuxeStrandhuis,
+                    hetModerneAppartement,
+                    deGezelligeBoerderij
                 };
 
                 _context.Location.AddRange(Locations);
